@@ -21,20 +21,26 @@ Widget::Widget(QWidget *parent)
 	QFont font("Times New Roman", 12, QFont::Normal);
 	
 	// setting the layout of child widgets
-	gridLayout->setSpacing(5);
-	gridLayout->setColumnMinimumWidth(0,1);
-	gridLayout->setColumnMinimumWidth(1, 1);
-	gridLayout->setColumnMinimumWidth(2, 1);
-	gridLayout->setColumnMinimumWidth(3, 1);
-	gridLayout->setColumnMinimumWidth(4, 1);
-	gridLayout->setColumnMinimumWidth(5, 1);
+	gridLayout->setSpacing(1);
+	gridLayout->setColumnMinimumWidth(0,0);
+	gridLayout->setColumnStretch(0, 0);
+	gridLayout->setColumnMinimumWidth(1, 10);
+	gridLayout->setColumnStretch(1, 2);
+	gridLayout->setColumnMinimumWidth(2, 0);
+	gridLayout->setColumnStretch(2, 0);
+	gridLayout->setColumnMinimumWidth(3, 10);
+	gridLayout->setColumnStretch(3, 2);
+	gridLayout->setColumnMinimumWidth(4, 0);
+	gridLayout->setColumnStretch(4, 0);
+	gridLayout->setColumnMinimumWidth(5, 10);
+	gridLayout->setColumnStretch(5, 100);
 
 	gridLayout->addWidget(progressText1, 0, 0, 1, 1);
 	gridLayout->addWidget(progressText2, 0, 1, 1, 1);
 	gridLayout->addWidget(progressText3, 0, 2, 1, 1);
 	gridLayout->addWidget(progressText4, 0, 3, 1, 1);
 	gridLayout->addWidget(progressText5, 0, 4, 1, 1);
-	gridLayout->addWidget(progressText6, 0, 5, 1, 1);
+	gridLayout->addWidget(progressText6, 0, 5, 1, -1);
 	gridLayout->addWidget(downloadProgressBar,1,0,1,-1);
 
 	// apply the grid layout of the widget 
@@ -43,6 +49,8 @@ Widget::Widget(QWidget *parent)
 	// Starting timer
 	timeElapsed.start();
 	// Initializing dowloader
+
+	
 	downloader = new Downloader();
 	
 	// connecting the signal from dowloader with download prodress to widget function

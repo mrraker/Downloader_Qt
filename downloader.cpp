@@ -1,5 +1,5 @@
 #include "downloader.h"
-
+#include <QCoreApplication>
 
 
 Downloader::Downloader(QObject *parent)
@@ -36,10 +36,10 @@ void Downloader::onResult(QNetworkReply *reply)
 		qDebug() << reply->errorString();
 	}
 	else
-	{
+	{	
+
 		// otherwise creating a new file in directory from CLI or default directory
 		QFile *file = new QFile(__argv[2]);
-
 	
 		// Creating new file or rewriting old one
 		if (file->open(QFile::WriteOnly))
@@ -48,7 +48,7 @@ void Downloader::onResult(QNetworkReply *reply)
 			file->write(reply->readAll());
 			// closing file
 			file->close();
-			qDebug() << "Downloading is completed";
+			//qDebug() << "Downloading is completed";
 			// sending a signal that download completed successfully
 			emit onReady();
 		}
