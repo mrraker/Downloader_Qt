@@ -1,5 +1,6 @@
 #include  <QtWidgets>
 #include "widget.h"
+
 //global download timer
 QElapsedTimer timeElapsed;
 
@@ -59,7 +60,8 @@ Widget::Widget(QWidget *parent)
 	// after download is completed sendind a signal to close funtiom
 	connect(downloader, &Downloader::onReady, this, &Widget::closeDowloader);
 
-
+	// if writing to file returnes an error sendind a signal to close funtiom
+	connect(downloader, &Downloader::onError, this, &Widget::closeDowloader);
 }
 
 // Widget destructor

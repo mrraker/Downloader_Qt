@@ -3,9 +3,7 @@
 
 #include <QtWidgets>
 #include <QFile>
-#include <downloader.h>
-
-
+#include "downloader.h"
 
 namespace Ui
 {
@@ -43,14 +41,15 @@ private:
 
 
 	// variables for previous Reply values of Receveid Bytes and elapsed download time
-	qint64 prevTimerValue =0;
-	qint64 prevBytesReceivedValue =0;
+	qint64 prevTimerValue = 0;
+	qint64 prevBytesReceivedValue = 0;
 
 	// variable for skipping several network download progress repliyes (pause counter)
-	int measPause = 1;
+	int measPause = 0;
 
 	// Downloader class
 	Downloader  *downloader;
 };
 
 #endif // WIDGET_H
+

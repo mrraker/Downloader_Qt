@@ -19,6 +19,10 @@ public:
 signals:
 	// A signal reported the dowload successfully completed
 	void onReady();
+
+	// A signal reported the error
+	void onError();
+	
 	// A signal sent information about the progress of the download
 	void updateDownloadProgress(qint64 bytesReceived, qint64 bytesTotal);
 

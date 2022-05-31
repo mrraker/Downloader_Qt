@@ -1,5 +1,6 @@
 #include "downloader.h"
 #include <QCoreApplication>
+#include <iostream>
 
 
 Downloader::Downloader(QObject *parent)
@@ -37,9 +38,22 @@ void Downloader::onResult(QNetworkReply *reply)
 	}
 	else
 	{	
+		std::string userURL = __argv[1]; // get the full user URL to extract filename
+
+		std::string fileName = userURL.substr(userURL.rfind("/") + 1 );
+
+
+		std::string userDirectory = __argv[2]; // get the user directory where to download file
+	
+		std::string fullFileNameStr = userDirectory + "\\" + fileName;
+
+		char * fullFileName = new char[fullFileNameStr.length() + 1];
+		std::strcpy(fullFileName, fullFileNameStr.c_str());
+
+		
 
 		// otherwise creating a new file in directory from CLI or default directory
-		QFile *file = new QFile(__argv[2]);
+		QFile *file = new QFile(fullFileName);
 	
 		// Creating new file or rewriting old one
 		if (file->open(QFile::WriteOnly))
@@ -48,9 +62,16 @@ void Downloader::onResult(QNetworkReply *reply)
 			file->write(reply->readAll());
 			// closing file
 			file->close();
-			//qDebug() << "Downloading is completed";
+
 			// sending a signal that download completed successfully
 			emit onReady();
+			qDebug() << "\nThe downloaded file was saved as '" << fullFileName << "'";
+
+		}
+		else
+		{
+			qDebug() << "\nError writing to file. File path '" << fullFileName << "'";
+			emit onError();
 		}
 	}
 }
